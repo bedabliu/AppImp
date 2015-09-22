@@ -22,6 +22,8 @@
         <item>@string/asa_norte</item>
         <item>@string/asa_sul</item>
         <item>@string/sudoeste</item>
+        <item>@string/aguas_claras</item>
+        <item>@string/taguatinga</item>
     </string-array>
 
     <string name="title_messages">Messages</string>
@@ -31,4 +33,6 @@
     <string name="asa_norte">Asa Norte</string>
     <string name="asa_sul">Asa Sul</string>
     <string name="sudoeste">Sudoeste</string>
+    <string name="aguas_claras">Águas Claras</string>
+    <string name="taguatinga">Taguatinga</string>
 </resources>
