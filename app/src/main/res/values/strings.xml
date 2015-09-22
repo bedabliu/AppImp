@@ -19,9 +19,9 @@
     </string-array>
 
     <string-array name="unidades_nomes">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/asa_norte</item>
+        <item>@string/asa_sul</item>
+        <item>@string/sudoeste</item>
     </string-array>
 
     <string name="title_messages">Messages</string>
