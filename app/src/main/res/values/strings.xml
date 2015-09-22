@@ -27,7 +27,8 @@
     </string-array>
 
     <string name="title_messages">Messages</string>
-    <string name="title_friends">Friends</string>
+    <string name="title_friends">Curso</string>
+    <string name="title_curso">Curso</string>
     <string name="title_home">Home</string>
 
     <string name="asa_norte">Asa Norte</string>
