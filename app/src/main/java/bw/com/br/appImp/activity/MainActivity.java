@@ -91,15 +91,6 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        View view = menu.findItem(R.id.action_exit).getActionView();
-        view.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-            }
-        });
         return true;
     }
 
@@ -110,6 +101,14 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        switch (id){
+            case R.id.action_exit:
+                finish();
+                System.exit(0);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
         //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
 //            return true;
