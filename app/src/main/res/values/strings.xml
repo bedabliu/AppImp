@@ -8,13 +8,13 @@
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Inicio</string>
-    <string name="nav_item_friends">Friends</string>
+    <string name="nav_item_curso">Curso</string>
     <string name="nav_item_notifications">Messages</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_curso</item>
         <item>@string/nav_item_notifications</item>
     </string-array>
 

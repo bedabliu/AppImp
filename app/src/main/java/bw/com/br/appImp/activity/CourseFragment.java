@@ -3,13 +3,11 @@ package bw.com.br.appImp.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +19,14 @@ import bw.com.br.appImp.model.UnidadeItem;
 /**
  * Created by f9342808 on 18/09/15.
  */
-public class FriendsFragment extends Fragment {
+public class CourseFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private UnitySelectAdapter adapter;
     private static String[] unidadesNomes = null;
 
-    public FriendsFragment() {
+    public CourseFragment() {
         // Required empty public constructor
     }
 
@@ -56,7 +54,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_course, container, false);
 
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.VISIBLE);
 
