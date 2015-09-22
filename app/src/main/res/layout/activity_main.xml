@@ -17,18 +17,7 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-        <TextView
-            android:text="@string/hello_world"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/buttonOkTest"
-            android:layout_marginTop="75dp" />
         <FrameLayout
             android:id="@+id/container_body"
             android:layout_width="fill_parent"
@@ -36,18 +25,53 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:src="@drawable/ic_add"-->
+            <!--app:fabSize="mini"-->
+            <!--app:layout_anchorGravity="bottom|right"-->
+            <!--android:layout_gravity="bottom|right"-->
+            <!--app:rippleColor="#F06292"/>-->
+    <!--</FrameLayout>-->
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="bottom|right"
+        app:fab_addButtonColorNormal="@color/colorAccent"
+        app:fab_addButtonColorPressed="@color/colorAccent"
+        app:fab_addButtonPlusIconColor="@color/white"
+        app:fab_addButtonSize="mini"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:src="@drawable/ic_add"
-            app:fabSize="mini"
-            app:layout_anchorGravity="bottom|right"
-            app:rippleColor="#F06292"/>
-    </FrameLayout>
+            app:fab_colorNormal="@color/white"
+            app:fab_title="Label on the right"
+            app:fab_colorPressed="@color/white_pressed"/>
 
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_size="mini"
+            app:fab_title="Another one on the right"
+            app:fab_colorPressed="@color/white_pressed"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    </FrameLayout>
     <fragment
         android:id="@+id/fragment_navigation_drawer"
         android:name="bw.com.br.appImp.activity.FragmentDrawer"

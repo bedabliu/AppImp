@@ -1,15 +1,18 @@
 package bw.com.br.appImp.model;
 
-public class NavDrawerItem {
+/**
+ * Created by bedab on 21/09/2015.
+ */
+public class UnidadeItem {
     private boolean showNotify;
     private String title;
 
 
-    public NavDrawerItem() {
+    public UnidadeItem() {
 
     }
 
-    public NavDrawerItem(boolean showNotify, String title) {
+    public UnidadeItem(boolean showNotify, String title) {
         this.showNotify = showNotify;
         this.title = title;
     }

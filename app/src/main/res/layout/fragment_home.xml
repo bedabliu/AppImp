@@ -9,23 +9,39 @@
 
     <TextView
         android:id="@+id/label"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="100dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="45dp"
-        android:text="HOME"
-        android:textStyle="bold"/>
+        android:text="Bem Vindo"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_below="@id/label"
-        android:layout_centerInParent="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Edit fragment_home.xml to change the appearance" />
+    <ImageView
+        android:layout_width="60dip"
+        android:layout_height="130dip"
+        android:src="@drawable/logoimp1"
+        android:id="@+id/logo1"
+        android:layout_below="@+id/label"
+        android:layout_toLeftOf="@+id/logo2"
+        android:layout_toStartOf="@+id/logo2" />
+    <ImageView
+        android:layout_width="210dp"
+        android:layout_height="130dip"
+        android:src="@drawable/logoimp2"
+        android:id="@+id/logo2"
+        android:layout_alignTop="@+id/logo3"
+        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="16dip"
+        android:layout_height="130dip"
+        android:src="@drawable/logoimp3"
+        android:id="@+id/logo3"
+        android:layout_below="@+id/label"
+        android:layout_toRightOf="@+id/logo2"
+        android:layout_toEndOf="@+id/logo2" />
 
 </RelativeLayout>

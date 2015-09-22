@@ -1,11 +1,15 @@
 package bw.com.br.appImp.activity;
 
 import android.app.Activity;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import bw.com.br.appImp.R;
 
@@ -28,6 +32,17 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+//        TextView text = (TextView) rootView.findViewById(R.id.label);
+        ImageView logo1 = (ImageView) rootView.findViewById(R.id.logo1);
+        logo1.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.left_to_right));
+
+        ImageView logo2 = (ImageView) rootView.findViewById(R.id.logo2);
+        logo2.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.right_to_left));
+
+        ImageView logo3 = (ImageView) rootView.findViewById(R.id.logo3);
+        logo3.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.top_to_bottom));
+
+        getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
 
         // Inflate the layout for this fragment
         return rootView;

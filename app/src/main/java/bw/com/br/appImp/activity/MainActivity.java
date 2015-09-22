@@ -50,55 +50,55 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
 
         displayView(0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Teste", Toast.LENGTH_LONG);
-                //Write here anything that you wish to do on click of FAB
-                // Code to Add an item with default animation
-//                int index = mAdapter.getItemCount();
-//                DataObject obj = new DataObject("Some Primary Text " + index,
-//                        "Secondary " + index);
-//                ((MyRecyclerViewAdapter) mAdapter).addItem(obj, index);
-                //Ends Here
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(),"Teste", Toast.LENGTH_LONG);
+//                //Write here anything that you wish to do on click of FAB
+//                // Code to Add an item with default animation
+////                int index = mAdapter.getItemCount();
+////                DataObject obj = new DataObject("Some Primary Text " + index,
+////                        "Secondary " + index);
+////                ((MyRecyclerViewAdapter) mAdapter).addItem(obj, index);
+//                //Ends Here
+//            }
+//        });
 
-        final TextView mTextView = (TextView) findViewById(R.id.textView);
-
-        Button botao = (Button) findViewById(R.id.buttonOkTest);
-        botao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "http://undeadpixel.com.br:8585/imp/getGrade/1425*institutoimp";
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println(response);
-                        try {
-                            mTextView.setText("Response: " + response.getString("turma"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-
-                // Access the RequestQueue through your singleton class.
-                queue.add(jsObjRequest);
-
-            }
-        });
+//        final TextView mTextView = (TextView) findViewById(R.id.textView);
+//
+//        Button botao = (Button) findViewById(R.id.buttonOkTest);
+//        botao.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String url = "http://undeadpixel.com.br:8585/imp/getGrade/1425*institutoimp";
+//                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+//
+//                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        System.out.println(response);
+//                        try {
+//                            mTextView.setText("Response: " + response.getString("turma"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        // TODO Auto-generated method stub
+//
+//                    }
+//                });
+//
+//
+//                // Access the RequestQueue through your singleton class.
+//                queue.add(jsObjRequest);
+//
+//            }
+//        });
     }
 
     @Override
