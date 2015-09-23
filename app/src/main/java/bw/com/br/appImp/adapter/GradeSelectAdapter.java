@@ -3,14 +3,18 @@ package bw.com.br.appImp.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import bw.com.br.appImp.ItemClickListener;
@@ -24,27 +28,43 @@ import bw.com.br.appImp.model.Aula;
  */
 public class GradeSelectAdapter extends RecyclerView.Adapter<GradeSelectAdapter.MyViewHolder> {
 
-    List<Aula> data = Collections.emptyList();
+    List<Aula> listaDeAulas = Collections.emptyList();
     private LayoutInflater inflater;
     private Context mContext;
     private Fragment mFragment;
     private Bundle mBundle;
 
-    public GradeSelectAdapter(Context context, List<Aula> data) {
+    public GradeSelectAdapter(Context context, List<Aula> listaDeAulas) {
         this.mContext = context;
         inflater = LayoutInflater.from(mContext);
-        this.data = data;
+        this.listaDeAulas = listaDeAulas;
+        Collections.sort(listaDeAulas, new CustomComparator());
     }
 
     public void delete(int position) {
-        data.remove(position);
+        listaDeAulas.remove(position);
         notifyItemRemoved(position);
     }
 
     public void updateAll(List<Aula> lista) {
-        data = lista;
+        listaDeAulas = lista;
         notifyDataSetChanged();
     }
+
+    public void organizaGrade(){
+        Collections.sort(this.listaDeAulas, new CustomComparator());
+    }
+
+    public class CustomComparator implements Comparator<Aula> {
+        @Override
+        public int compare(Aula aula1, Aula aula2) {
+            Integer dataAula1 = Integer.parseInt(aula1.getDia());
+            Integer dataAula2 = Integer.parseInt(aula2.getDia());
+            return dataAula1 > dataAula2 ? -1 : dataAula1 < dataAula2 ? 1 : 0;
+        }
+    }
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,17 +75,40 @@ public class GradeSelectAdapter extends RecyclerView.Adapter<GradeSelectAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final Aula current = data.get(position);
-        if (current.getDia() != null)
-            holder.data.setText(current.getDia().substring(0, 4));
+        final Aula current = listaDeAulas.get(position);
+        String dataHoje = android.text.format.DateFormat.format("MMdd", new java.util.Date()).toString();
+        holder.data.setText("");
+        holder.diaDaSemana.setText("");
+        holder.materia.setText("");
+        holder.professor.setText("");
+        holder.aulasDadas.setText("");
+        holder.aulaTotal.setText("");
+        if (current.getDia() != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMdd");
+            SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("EEEE");
+            try {
+                Date date = format.parse(current.getDia());
+                holder.diaDaSemana.setText(formatDayOfWeek.format(date));
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (dataHoje.equals(current.getDia())) {
+//                holder.mCardView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+            }
+            holder.data.setText(current.getDia().substring(2) + "/" + current.getDia().substring(0, 2));
+        }
         if (current.getMateria() != null)
             holder.materia.setText(current.getMateria());
-        if (current.getProfessor() != null)
+        if (current.getProfessor() != null) {
             holder.professor.setText(current.getProfessor());
+        } else {
+//            holder.mCardView.setBackgroundColor(mContext.getResources().getColor(R.color.half_black));
+        }
         if (current.getAulasDadas() != null)
-            holder.aulasDadas.setText(current.getAulasDadas());
+            holder.aulasDadas.setText(current.getAulasDadas().substring(0, 1));
         if (current.getAulasTotal() != null)
-            holder.aulaTotal.setText(current.getAulasTotal());
+            holder.aulaTotal.setText(current.getAulasTotal().split(" ")[0]);
     }
 
     private void fragmentJump(String url) {
@@ -90,22 +133,26 @@ public class GradeSelectAdapter extends RecyclerView.Adapter<GradeSelectAdapter.
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return listaDeAulas.size();
     }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView data;
+        TextView diaDaSemana;
         TextView materia;
         TextView professor;
         TextView aulasDadas;
         TextView aulaTotal;
+        CardView mCardView;
 
         private ItemClickListener clickListener;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            mCardView = (CardView) itemView.findViewById(R.id.cv);
             data = (TextView) itemView.findViewById(R.id.data_grade);
+            diaDaSemana = (TextView) itemView.findViewById(R.id.dia_da_semana_grade);
             materia = (TextView) itemView.findViewById(R.id.materia_grade);
             professor = (TextView) itemView.findViewById(R.id.professor_grade);
             aulasDadas = (TextView) itemView.findViewById(R.id.aulas_dadas_grade);

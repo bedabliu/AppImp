@@ -18,29 +18,32 @@ public class GlobalVar {
 
     private Curso mCurso;
 
-    public GlobalVar(){}
+    public GlobalVar() {
+    }
 
-    public void setCurso(Curso curso){
+    public void setCurso(Curso curso) {
         this.mCurso = curso;
     }
 
-    public Curso getCurso(){
+    public Curso getCurso() {
         return this.mCurso;
     }
 
-    public boolean hasTurma(Turma turma){
+    public boolean hasTurma(Turma turma) {
         boolean achou = false;
-        for(Turma turmas : this.mCurso.getTurmas()){
-            if(turma.getNomeTurma().equals(turmas.getNomeTurma()) && turma.getUrlTurma().equals(turmas.getUrlTurma())){
-                achou = true;
+        if (this.mCurso != null) {
+            for (Turma turmas : this.mCurso.getTurmas()) {
+                if (turma.getNomeTurma().equals(turmas.getNomeTurma()) && turma.getUrlTurma().equals(turmas.getUrlTurma())) {
+                    achou = true;
+                }
             }
         }
         return achou;
     }
 
-    public static synchronized GlobalVar getInstance(){
-        if(instance==null){
-            instance=new GlobalVar();
+    public static synchronized GlobalVar getInstance() {
+        if (instance == null) {
+            instance = new GlobalVar();
         }
         return instance;
     }

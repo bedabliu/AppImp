@@ -25,8 +25,10 @@ import bw.com.br.appImp.activity.ClassFragment;
 import bw.com.br.appImp.activity.GradeFragment;
 import bw.com.br.appImp.activity.HomeFragment;
 import bw.com.br.appImp.activity.MainActivity;
+import bw.com.br.appImp.activity.MinhasTurmasFragment;
 import bw.com.br.appImp.model.Curso;
 import bw.com.br.appImp.model.Turma;
+import bw.com.br.appImp.utils.GlobalVar;
 
 /**
  * Created by bedab on 21/09/2015.
@@ -85,8 +87,13 @@ public class MinhaTurmaSelectAdapter extends RecyclerView.Adapter<MinhaTurmaSele
                         public void onClick(DialogInterface dialog, int which) {
                             removeCourseFromSharedPrefs(current);
                             Toast.makeText(mContext, "Curso removido com sucesso!",Toast.LENGTH_LONG).show();
-                            Fragment fragment = new HomeFragment();
-                            switchContent(R.id.container_body, fragment);
+                            if(GlobalVar.getInstance().getCurso().getTurmas().size() == 0) {
+                                Fragment fragment = new HomeFragment();
+                                switchContent(R.id.container_body, fragment);
+                            } else {
+                                Fragment fragment = new MinhasTurmasFragment();
+                                switchContent(R.id.container_body, fragment);
+                            }
                         }
                     });
                     builder.setNegativeButton("Cancel", null);

@@ -1,12 +1,14 @@
 package bw.com.br.appImp.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -79,8 +82,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         switch (id) {
             case R.id.action_exit:
-                finish();
-                System.exit(0);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.MyAlertDialogStyle);
+                builder.setTitle("Sair");
+                builder.setMessage("Deseja realmente sair?");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -118,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_friends);
                 break;
             case 2:
-                if(global.getCurso() != null) {
+                if (global.getCurso() != null) {
                     if (global.getCurso().getTurmas().size() > 0) {
                         Fragment fg = new MinhasTurmasFragment();
                         Bundle bundle = new Bundle();
@@ -145,6 +158,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     public void changeActionBarTitle(String title) {

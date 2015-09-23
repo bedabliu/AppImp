@@ -84,6 +84,7 @@ public class GradeFragment extends Fragment {
                     for(int i=0;i<jsonArray.length();i++){
                         listaAulas.add(new Aula(jsonArray.getJSONObject(i)));
                     }
+                    adapter.organizaGrade();
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();

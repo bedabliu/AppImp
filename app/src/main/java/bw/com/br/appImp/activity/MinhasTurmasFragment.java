@@ -17,6 +17,7 @@ import bw.com.br.appImp.adapter.MinhaTurmaSelectAdapter;
 import bw.com.br.appImp.adapter.TurmaSelectAdapter;
 import bw.com.br.appImp.model.Curso;
 import bw.com.br.appImp.model.Turma;
+import bw.com.br.appImp.utils.GlobalVar;
 
 /**
  * Created by f9342808 on 18/09/15.
@@ -43,7 +44,8 @@ public class MinhasTurmasFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_minhas_turmas, container, false);
         final List<Turma> listaTurmas = new ArrayList<Turma>();
 
-        listaTurmas.addAll(((Curso) getArguments().getSerializable("turmas")).getTurmas());
+//        listaTurmas.addAll(((Curso) getArguments().getSerializable("turmas")).getTurmas());
+        listaTurmas.addAll(GlobalVar.getInstance().getCurso().getTurmas());
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
 
         ((MainActivity)getActivity()).changeActionBarTitle("Minhas Turmas");

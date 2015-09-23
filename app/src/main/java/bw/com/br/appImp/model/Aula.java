@@ -15,15 +15,19 @@ public class Aula {
 
     public Aula(JSONObject aulaJson) {
         try {
-            if (aulaJson.getString("materia") != null)
+            if (aulaJson.has("materia"))
                 this.setMateria(aulaJson.getString("materia"));
-            if (aulaJson.getString("professor") != null)
+            if (aulaJson.has("professor"))
                 this.setProfessor(aulaJson.getString("professor"));
-            if (aulaJson.getString("diaDaSemana") != null)
-                this.setDia(aulaJson.getString("diaDaSemana"));
-            if (aulaJson.getString("aulasDadas") != null)
+            if (aulaJson.has("diaDaSemana")){
+                String dataCompleta =  aulaJson.getString("diaDaSemana");
+                String[] dataDividida = dataCompleta.split("/");
+                String dataFormatada = dataDividida[1].trim() + dataDividida[0].trim();
+                this.setDia(dataFormatada);
+            }
+            if (aulaJson.has("aulasDadas"))
                 this.setAulasDadas(aulaJson.getString("aulasDadas"));
-            if (aulaJson.getString("aulasTotal") != null)
+            if (aulaJson.has("aulasTotal"))
                 this.setAulasTotal(aulaJson.getString("aulasTotal"));
 
         } catch (JSONException e) {
