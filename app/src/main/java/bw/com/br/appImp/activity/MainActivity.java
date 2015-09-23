@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         switch (id) {
             case R.id.action_exit:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.MyAlertDialogStyle);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
                 builder.setTitle("Sair");
                 builder.setMessage("Deseja realmente sair?");
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

@@ -48,6 +48,9 @@ public class HomeFragment extends Fragment {
         ImageView logo3 = (ImageView) rootView.findViewById(R.id.logo3);
         logo3.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.top_to_bottom));
 
+        TextView bemVindoTxt = (TextView) rootView.findViewById(R.id.bem_vindo_textview);
+        bemVindoTxt.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
 
 //        if(global.getCurso() != null) {

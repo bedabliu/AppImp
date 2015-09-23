@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/bem_vindo_textview"
         android:layout_marginTop="100dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_height="130dip"
         android:src="@drawable/logoimp1"
         android:id="@+id/logo1"
-        android:layout_below="@+id/label"
+        android:layout_below="@+id/bem_vindo_textview"
         android:layout_toLeftOf="@+id/logo2"
         android:layout_toStartOf="@+id/logo2" />
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_height="130dip"
         android:src="@drawable/logoimp3"
         android:id="@+id/logo3"
-        android:layout_below="@+id/label"
+        android:layout_below="@+id/bem_vindo_textview"
         android:layout_toRightOf="@+id/logo2"
         android:layout_toEndOf="@+id/logo2" />
 
