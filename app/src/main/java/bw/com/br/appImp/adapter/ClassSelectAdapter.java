@@ -3,8 +3,6 @@ package bw.com.br.appImp.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,20 +17,22 @@ import bw.com.br.appImp.ItemClickListener;
 import bw.com.br.appImp.R;
 import bw.com.br.appImp.activity.ClassFragment;
 import bw.com.br.appImp.activity.MainActivity;
-import bw.com.br.appImp.model.UnidadeItem;
+import bw.com.br.appImp.activity.TurmasFragment;
+import bw.com.br.appImp.model.Curso;
+import bw.com.br.appImp.model.Turma;
 
 /**
  * Created by bedab on 21/09/2015.
  */
-public class UnitySelectAdapter extends RecyclerView.Adapter<UnitySelectAdapter.MyViewHolder>  {
+public class ClassSelectAdapter extends RecyclerView.Adapter<ClassSelectAdapter.MyViewHolder>  {
 
-    List<UnidadeItem> data = Collections.emptyList();
+    List<Curso> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context mContext;
     private Fragment mFragment;
     private Bundle mBundle;
 
-    public UnitySelectAdapter(Context context, List<UnidadeItem> data) {
+    public ClassSelectAdapter(Context context, List<Curso> data) {
         this.mContext = context;
         inflater = LayoutInflater.from(mContext);
         this.data = data;
@@ -41,6 +41,11 @@ public class UnitySelectAdapter extends RecyclerView.Adapter<UnitySelectAdapter.
     public void delete(int position) {
         data.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void updateAll(List<Curso> lista){
+        data = lista;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,25 +64,25 @@ public class UnitySelectAdapter extends RecyclerView.Adapter<UnitySelectAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final UnidadeItem current = data.get(position);
-        holder.title.setText(current.getTitle());
+        final Curso current = data.get(position);
+        holder.title.setText(current.getNomeCurso());
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
-                    Toast.makeText(mContext, "#" + position + " - " + current.getUrl() + " (Long click)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "#" + position + " - " + current.getNomeCurso() + " (Long click)", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mContext, "#" + position + " - " + current.getUrl(), Toast.LENGTH_SHORT).show();
-                    fragmentJump(current.getUrl());
+                    Toast.makeText(mContext, "#" + position + " - " + current.getNomeCurso(), Toast.LENGTH_SHORT).show();
+                    fragmentJump(current);
                 }
             }
         });
     }
 
-    private void fragmentJump(String url) {
-        mFragment = new ClassFragment();
+    private void fragmentJump(Curso curso) {
+        mFragment = new TurmasFragment();
         mBundle = new Bundle();
-        mBundle.putString("url", url);
+        mBundle.putSerializable("turmas", curso);
         mFragment.setArguments(mBundle);
         switchContent(R.id.container_body, mFragment);
     }

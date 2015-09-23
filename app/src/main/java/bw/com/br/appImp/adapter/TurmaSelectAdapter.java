@@ -1,38 +1,47 @@
 package bw.com.br.appImp.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import bw.com.br.appImp.ItemClickListener;
 import bw.com.br.appImp.R;
 import bw.com.br.appImp.activity.ClassFragment;
 import bw.com.br.appImp.activity.MainActivity;
-import bw.com.br.appImp.model.UnidadeItem;
+import bw.com.br.appImp.model.Curso;
+import bw.com.br.appImp.model.Turma;
 
 /**
  * Created by bedab on 21/09/2015.
  */
-public class UnitySelectAdapter extends RecyclerView.Adapter<UnitySelectAdapter.MyViewHolder>  {
+public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.MyViewHolder>  {
 
-    List<UnidadeItem> data = Collections.emptyList();
+    List<Turma> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context mContext;
     private Fragment mFragment;
     private Bundle mBundle;
 
-    public UnitySelectAdapter(Context context, List<UnidadeItem> data) {
+    public TurmaSelectAdapter(Context context, List<Turma> data) {
         this.mContext = context;
         inflater = LayoutInflater.from(mContext);
         this.data = data;
@@ -41,6 +50,11 @@ public class UnitySelectAdapter extends RecyclerView.Adapter<UnitySelectAdapter.
     public void delete(int position) {
         data.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void updateAll(List<Turma> lista){
+        data = lista;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,19 +73,44 @@ public class UnitySelectAdapter extends RecyclerView.Adapter<UnitySelectAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final UnidadeItem current = data.get(position);
-        holder.title.setText(current.getTitle());
+        final Turma current = data.get(position);
+        holder.title.setText(current.getNomeTurma());
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                if (isLongClick) {
-                    Toast.makeText(mContext, "#" + position + " - " + current.getUrl() + " (Long click)", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mContext, "#" + position + " - " + current.getUrl(), Toast.LENGTH_SHORT).show();
-                    fragmentJump(current.getUrl());
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.MyAlertDialogStyle);
+                builder.setTitle(current.getNomeTurma());
+                builder.setMessage("Deseja adicionar a sua lista de cursos?");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        addCourseToSharedPrefs(current);
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
             }
         });
+    }
+
+    private void addCourseToSharedPrefs(Turma turma){
+        SharedPreferences prefs = mContext.getSharedPreferences("meus_cursos", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Curso curso;
+        try {
+            if(prefs.contains("cursos")) {
+                curso = new Curso(new JSONObject(prefs.getString("cursos", null)));
+            } else {
+                curso = new Curso();
+                curso.setNomeCurso("Meus Cursos");
+            }
+            curso.addTurma(turma);
+            JSONObject cursoJson = new JSONObject();
+            cursoJson.put("nomeCurso", curso.getNomeCurso());
+            cursoJson.put("turmas", curso.getTurmasJsonArray());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fragmentJump(String url) {

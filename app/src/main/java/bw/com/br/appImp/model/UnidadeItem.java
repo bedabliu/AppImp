@@ -1,12 +1,23 @@
 package bw.com.br.appImp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by bedab on 21/09/2015.
  */
-public class UnidadeItem {
+public class UnidadeItem{
     private boolean showNotify;
     private String title;
+    private String url;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public UnidadeItem() {
 
@@ -32,4 +43,5 @@ public class UnidadeItem {
     public void setTitle(String title) {
         this.title = title;
     }
+
 }

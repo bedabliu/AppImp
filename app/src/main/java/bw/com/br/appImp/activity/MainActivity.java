@@ -122,6 +122,13 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
         displayView(position);
     }
 
+    public void switchContent(int id, Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(id, fragment, fragment.toString());
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
     private void displayView(int position) {
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -151,5 +158,9 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    public void changeActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
     }
 }

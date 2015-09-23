@@ -18,12 +18,21 @@
         <item>@string/nav_item_notifications</item>
     </string-array>
 
+
     <string-array name="unidades_nomes">
+        <item>@string/aguas_claras</item>
         <item>@string/asa_norte</item>
         <item>@string/asa_sul</item>
         <item>@string/sudoeste</item>
-        <item>@string/aguas_claras</item>
         <item>@string/taguatinga</item>
+    </string-array>
+
+    <string-array name="unidades_url">
+        <item>@string/aguas_claras_url</item>
+        <item>@string/asa_norte_url</item>
+        <item>@string/asa_sul_url</item>
+        <item>@string/sudoeste_url</item>
+        <item>@string/taguatinga_url</item>
     </string-array>
 
     <string name="title_messages">Messages</string>
@@ -31,9 +40,15 @@
     <string name="title_curso">Curso</string>
     <string name="title_home">Home</string>
 
+    <string name="aguas_claras">Águas Claras</string>
     <string name="asa_norte">Asa Norte</string>
     <string name="asa_sul">Asa Sul</string>
     <string name="sudoeste">Sudoeste</string>
-    <string name="aguas_claras">Águas Claras</string>
     <string name="taguatinga">Taguatinga</string>
+
+    <string name="aguas_claras_url">aguas-claras</string>
+    <string name="asa_norte_url">asa-norte</string>
+    <string name="asa_sul_url">asa-sul</string>
+    <string name="sudoeste_url">sudoeste</string>
+    <string name="taguatinga_url">taguatinga</string>
 </resources>

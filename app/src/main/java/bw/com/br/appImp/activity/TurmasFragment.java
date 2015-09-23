@@ -10,24 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import bw.com.br.appImp.R;
-import bw.com.br.appImp.adapter.UnitySelectAdapter;
-import bw.com.br.appImp.model.UnidadeItem;
+import bw.com.br.appImp.adapter.TurmaSelectAdapter;
+import bw.com.br.appImp.model.Curso;
+import bw.com.br.appImp.model.Turma;
 
 /**
  * Created by f9342808 on 18/09/15.
  */
-public class CourseFragment extends Fragment {
+public class TurmasFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private UnitySelectAdapter adapter;
-    private static String[] unidadesNomes = null;
-    private static String[] unidadesUrl = null;
+    private TurmaSelectAdapter adapter;
 
-    public CourseFragment() {
+    public TurmasFragment() {
         // Required empty public constructor
     }
 
@@ -35,32 +35,18 @@ public class CourseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        unidadesNomes =  getActivity().getResources().getStringArray(R.array.unidades_nomes);
-        unidadesUrl =  getActivity().getResources().getStringArray(R.array.unidades_url);
-
-    }
-
-    public static List<UnidadeItem> getData() {
-        List<UnidadeItem> data = new ArrayList<>();
-
-        // preparing navigation drawer items
-        for (int i = 0; i < unidadesNomes.length; i++) {
-            UnidadeItem item = new UnidadeItem();
-            item.setTitle(unidadesNomes[i]);
-            item.setUrl(unidadesUrl[i]);
-            data.add(item);
-        }
-        return data;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_course, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_class, container, false);
+        final List<Turma> listaTurmas = new ArrayList<Turma>();
 
+        listaTurmas.addAll(((Curso) getArguments().getSerializable("turmas")).getTurmas());
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
 
-        ((MainActivity)getActivity()).changeActionBarTitle("Unidades IMP");
+        ((MainActivity)getActivity()).changeActionBarTitle("Codigo da Turma");
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -68,8 +54,9 @@ public class CourseFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        adapter = new UnitySelectAdapter(getActivity(), getData());
+        adapter = new TurmaSelectAdapter(getActivity(), listaTurmas);
         mRecyclerView.setAdapter(adapter);
+
         // Inflate the layout for this fragment
         return rootView;
     }
