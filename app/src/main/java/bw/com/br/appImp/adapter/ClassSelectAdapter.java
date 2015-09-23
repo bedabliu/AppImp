@@ -50,7 +50,7 @@ public class ClassSelectAdapter extends RecyclerView.Adapter<ClassSelectAdapter.
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.unidade_row, parent, false);
+        View view = inflater.inflate(R.layout.turma_row, parent, false);
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -70,9 +70,9 @@ public class ClassSelectAdapter extends RecyclerView.Adapter<ClassSelectAdapter.
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
-                    Toast.makeText(mContext, "#" + position + " - " + current.getNomeCurso() + " (Long click)", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "#" + position + " - " + current.getNomeCurso() + " (Long click)", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mContext, "#" + position + " - " + current.getNomeCurso(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "#" + position + " - " + current.getNomeCurso(), Toast.LENGTH_SHORT).show();
                     fragmentJump(current);
                 }
             }
@@ -111,7 +111,7 @@ public class ClassSelectAdapter extends RecyclerView.Adapter<ClassSelectAdapter.
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.nome_unidade);
+            title = (TextView) itemView.findViewById(R.id.nome_campo);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }

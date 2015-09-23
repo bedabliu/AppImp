@@ -3,7 +3,9 @@ package bw.com.br.appImp.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +28,7 @@ import java.util.List;
 import bw.com.br.appImp.ItemClickListener;
 import bw.com.br.appImp.R;
 import bw.com.br.appImp.activity.ClassFragment;
+import bw.com.br.appImp.activity.HomeFragment;
 import bw.com.br.appImp.activity.MainActivity;
 import bw.com.br.appImp.model.Curso;
 import bw.com.br.appImp.model.Turma;
@@ -59,7 +62,7 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.unidade_row, parent, false);
+        View view = inflater.inflate(R.layout.turma_row, parent, false);
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -85,6 +88,9 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         addCourseToSharedPrefs(current);
+                        Toast.makeText(mContext, "Curso adicionado com sucesso!",Toast.LENGTH_LONG).show();
+                        Fragment fragment = new HomeFragment();
+                        switchContent(R.id.container_body, fragment);
                     }
                 });
                 builder.setNegativeButton("Cancel", null);
@@ -106,8 +112,10 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
             }
             curso.addTurma(turma);
             JSONObject cursoJson = new JSONObject();
-            cursoJson.put("nomeCurso", curso.getNomeCurso());
-            cursoJson.put("turmas", curso.getTurmasJsonArray());
+            cursoJson.put("nome", curso.getNomeCurso());
+            cursoJson.put("curso", curso.getTurmasJsonArray());
+            editor.putString("cursos", cursoJson.toString());
+            editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -145,7 +153,7 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.nome_unidade);
+            title = (TextView) itemView.findViewById(R.id.nome_campo);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }

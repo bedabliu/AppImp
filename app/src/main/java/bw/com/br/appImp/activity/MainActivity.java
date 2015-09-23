@@ -1,5 +1,7 @@
 package bw.com.br.appImp.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,14 +12,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import bw.com.br.appImp.R;
+import bw.com.br.appImp.model.Curso;
+import bw.com.br.appImp.utils.GlobalVar;
 
 
-public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.FragmentDrawerListener{
+public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+    private GlobalVar global = new GlobalVar();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,57 +43,24 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+        carregaVariavelGlobal();
+
         displayView(0);
+    }
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(),"Teste", Toast.LENGTH_LONG);
-//                //Write here anything that you wish to do on click of FAB
-//                // Code to Add an item with default animation
-////                int index = mAdapter.getItemCount();
-////                DataObject obj = new DataObject("Some Primary Text " + index,
-////                        "Secondary " + index);
-////                ((MyRecyclerViewAdapter) mAdapter).addItem(obj, index);
-//                //Ends Here
-//            }
-//        });
-
-//        final TextView mTextView = (TextView) findViewById(R.id.textView);
-//
-//        Button botao = (Button) findViewById(R.id.buttonOkTest);
-//        botao.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String url = "http://undeadpixel.com.br:8585/imp/getGrade/1425*institutoimp";
-//                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-//
-//                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        System.out.println(response);
-//                        try {
-//                            mTextView.setText("Response: " + response.getString("turma"));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        // TODO Auto-generated method stub
-//
-//                    }
-//                });
-//
-//
-//                // Access the RequestQueue through your singleton class.
-//                queue.add(jsObjRequest);
-//
-//            }
-//        });
+    public void carregaVariavelGlobal() {
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("meus_cursos", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Curso curso;
+        try {
+            if (prefs.contains("cursos")) {
+                JSONObject cursoJSON = new JSONObject(prefs.getString("cursos", null));
+                curso = new Curso(cursoJSON);
+                global.setCurso(curso);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,7 +77,7 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.action_exit:
                 finish();
                 System.exit(0);
@@ -160,7 +136,7 @@ public class MainActivity extends AppCompatActivity  implements  FragmentDrawer.
         }
     }
 
-    public void changeActionBarTitle(String title){
+    public void changeActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
 }

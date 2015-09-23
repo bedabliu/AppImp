@@ -1,8 +1,11 @@
 package bw.com.br.appImp.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +42,7 @@ public class ClassFragment extends Fragment {
     private ClassSelectAdapter adapter;
     private static String[] unidadesNomes = null;
     private static String[] unidadesUrl = null;
+    private ProgressDialog loadingDg;
 
     public ClassFragment() {
         // Required empty public constructor
@@ -90,7 +94,7 @@ public class ClassFragment extends Fragment {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println(response);
+                loadingDg.dismiss();
                 try {
                     JSONArray jsonArray = new JSONArray(response.getJSONArray("grupos").toString());
                     for(int i=0;i<jsonArray.length();i++){
@@ -106,21 +110,28 @@ public class ClassFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // TODO Auto-generated method stub
-
+                loadingDg.dismiss();
+                AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext(), R.style.MyAlertDialogStyle);
+                builder.setTitle("Erro");
+                builder.setMessage("Ocorreu um erro ao consultar o servidor...");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getFragmentManager().popBackStackImmediate();
+                    }
+                });
+                builder.show();
             }
         });
 
-
-
-        Toast.makeText(rootView.getContext(), getArguments().getString("url"), Toast.LENGTH_LONG).show();
-
-
-
-
-
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this.getContext()).addToRequestQueue(jsObjRequest);
-
+        loadingDg = new ProgressDialog(rootView.getContext());
+        loadingDg.setTitle("Consultando Servidor");
+        loadingDg.setMessage("Por Favor Aguarde...");
+        loadingDg.setCancelable(false);
+        loadingDg.setIndeterminate(true);
+        loadingDg.show();
 
         // Inflate the layout for this fragment
         return rootView;

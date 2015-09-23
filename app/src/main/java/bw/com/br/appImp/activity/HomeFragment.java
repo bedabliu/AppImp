@@ -12,11 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import bw.com.br.appImp.R;
+import bw.com.br.appImp.utils.GlobalVar;
 
 /**
  * Created by f9342808 on 18/09/15.
  */
 public class HomeFragment extends Fragment {
+
+    private GlobalVar global = new GlobalVar();
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -30,6 +34,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
 //        TextView text = (TextView) rootView.findViewById(R.id.label);
@@ -43,6 +49,16 @@ public class HomeFragment extends Fragment {
         logo3.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.top_to_bottom));
 
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
+
+        if(global.getCurso() != null) {
+            if (global.getCurso().getTurmas().size() > 0) {
+                Fragment fg = new MinhasTurmasFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("turmas", global.getCurso());
+                fg.setArguments(bundle);
+                ((MainActivity) getActivity()).switchContent(R.id.container_body, fg);
+            }
+        }
 
         // Inflate the layout for this fragment
         return rootView;
