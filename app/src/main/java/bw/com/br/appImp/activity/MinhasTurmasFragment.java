@@ -46,7 +46,7 @@ public class MinhasTurmasFragment extends Fragment {
         listaTurmas.addAll(((Curso) getArguments().getSerializable("turmas")).getTurmas());
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
 
-        ((MainActivity)getActivity()).changeActionBarTitle("Codigo da Turma");
+        ((MainActivity)getActivity()).changeActionBarTitle("Minhas Turmas");
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);

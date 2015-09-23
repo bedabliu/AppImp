@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import bw.com.br.appImp.model.Curso;
+import bw.com.br.appImp.model.Turma;
 
 /**
  * Created by bedab on 22/09/2015.
@@ -25,6 +26,16 @@ public class GlobalVar {
 
     public Curso getCurso(){
         return this.mCurso;
+    }
+
+    public boolean hasTurma(Turma turma){
+        boolean achou = false;
+        for(Turma turmas : this.mCurso.getTurmas()){
+            if(turma.getNomeTurma().equals(turmas.getNomeTurma()) && turma.getUrlTurma().equals(turmas.getUrlTurma())){
+                achou = true;
+            }
+        }
+        return achou;
     }
 
     public static synchronized GlobalVar getInstance(){

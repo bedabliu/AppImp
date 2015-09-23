@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Curso implements Serializable {
     private String nomeCurso;
-    private List<Turma> turmas = new ArrayList<Turma>();
+    private List<Turma> mTurmas = new ArrayList<Turma>();
 
     public Curso() {
 
@@ -24,7 +24,7 @@ public class Curso implements Serializable {
             this.setNomeCurso(curso.getString("nome"));
             JSONArray jsonArray = new JSONArray(curso.getJSONArray("curso").toString());
             for (int i = 0; i < jsonArray.length(); i++) {
-                turmas.add(new Turma(jsonArray.getJSONObject(i)));
+                mTurmas.add(new Turma(jsonArray.getJSONObject(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -40,43 +40,57 @@ public class Curso implements Serializable {
     }
 
     public List<Turma> getTurmas() {
-        return turmas;
+        return mTurmas;
     }
 
     public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
+        this.mTurmas = turmas;
     }
 
     public void setTurmas(JSONArray turmas) {
         for (int i = 0; i < turmas.length(); i++) {
             try {
-                this.turmas.add(new Turma(turmas.getJSONObject(i)));
+                this.mTurmas.add(new Turma(turmas.getJSONObject(i)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    public boolean hasTurma(Turma turma){
+        boolean achou = false;
+        for(Turma turmas : mTurmas){
+            if(turma.getNomeTurma().equals(turmas.getNomeTurma()) && turma.getUrlTurma().equals(turmas.getUrlTurma())){
+                achou = true;
+            }
+        }
+        return achou;
+    }
+
     public void addTurma(Turma turma) {
-        if (!this.turmas.contains(turma))
-            this.turmas.add(turma);
+        if (!hasTurma(turma))
+            this.mTurmas.add(turma);
     }
 
     public void removeTurma(Turma turma) {
-        this.turmas.remove(turma);
+        for(Turma turmas : mTurmas){
+            if(turma.getNomeTurma().equals(turmas.getNomeTurma()) && turma.getUrlTurma().equals(turmas.getUrlTurma())){
+                mTurmas.remove(turmas);
+            }
+        }
     }
 
     public JSONArray getTurmasJsonArray() {
         JSONArray array = new JSONArray();
-        for (int i = 0; i < turmas.size(); i++) {
+        for (int i = 0; i < mTurmas.size(); i++) {
             JSONObject turmaJSON = new JSONObject();
             try {
-                turmaJSON.put("nome", turmas.get(i).getNomeTurma());
-                turmaJSON.put("url", turmas.get(i).getUrlTurma());
+                turmaJSON.put("nome", mTurmas.get(i).getNomeTurma());
+                turmaJSON.put("url", mTurmas.get(i).getUrlTurma());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            array.put(turmas.get(i));
+            array.put(turmaJSON);
         }
         return array;
     }

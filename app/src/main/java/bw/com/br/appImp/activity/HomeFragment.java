@@ -19,7 +19,7 @@ import bw.com.br.appImp.utils.GlobalVar;
  */
 public class HomeFragment extends Fragment {
 
-    private GlobalVar global = new GlobalVar();
+    private GlobalVar global = GlobalVar.getInstance();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,15 +50,15 @@ public class HomeFragment extends Fragment {
 
         getActivity().findViewById(R.id.fab_menu).setVisibility(View.GONE);
 
-        if(global.getCurso() != null) {
-            if (global.getCurso().getTurmas().size() > 0) {
-                Fragment fg = new MinhasTurmasFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("turmas", global.getCurso());
-                fg.setArguments(bundle);
-                ((MainActivity) getActivity()).switchContent(R.id.container_body, fg);
-            }
-        }
+//        if(global.getCurso() != null) {
+//            if (global.getCurso().getTurmas().size() > 0) {
+//                Fragment fg = new MinhasTurmasFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("turmas", global.getCurso());
+//                fg.setArguments(bundle);
+//                ((MainActivity) getActivity()).switchContent(R.id.container_body, fg);
+//            }
+//        }
 
         // Inflate the layout for this fragment
         return rootView;

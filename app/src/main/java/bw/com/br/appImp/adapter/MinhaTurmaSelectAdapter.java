@@ -22,6 +22,8 @@ import java.util.List;
 import bw.com.br.appImp.ItemClickListener;
 import bw.com.br.appImp.R;
 import bw.com.br.appImp.activity.ClassFragment;
+import bw.com.br.appImp.activity.GradeFragment;
+import bw.com.br.appImp.activity.HomeFragment;
 import bw.com.br.appImp.activity.MainActivity;
 import bw.com.br.appImp.model.Curso;
 import bw.com.br.appImp.model.Turma;
@@ -82,12 +84,16 @@ public class MinhaTurmaSelectAdapter extends RecyclerView.Adapter<MinhaTurmaSele
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             removeCourseFromSharedPrefs(current);
+                            Toast.makeText(mContext, "Curso removido com sucesso!",Toast.LENGTH_LONG).show();
+                            Fragment fragment = new HomeFragment();
+                            switchContent(R.id.container_body, fragment);
                         }
                     });
                     builder.setNegativeButton("Cancel", null);
                     builder.show();
                 } else {
-                    Toast.makeText(mContext, "Abre a Grade do Curso", Toast.LENGTH_LONG).show();
+                    fragmentJump(current.getUrlTurma());
+//                    Toast.makeText(mContext, "Abre a Grade do Curso", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -110,13 +116,15 @@ public class MinhaTurmaSelectAdapter extends RecyclerView.Adapter<MinhaTurmaSele
             cursoJson.put("curso", curso.getTurmasJsonArray());
             editor.putString("cursos", cursoJson.toString());
             editor.commit();
+            MainActivity mainActivity = (MainActivity) mContext;
+            mainActivity.carregaVariavelGlobal();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     private void fragmentJump(String url) {
-        mFragment = new ClassFragment();
+        mFragment = new GradeFragment();
         mBundle = new Bundle();
         mBundle.putString("url", url);
         mFragment.setArguments(mBundle);

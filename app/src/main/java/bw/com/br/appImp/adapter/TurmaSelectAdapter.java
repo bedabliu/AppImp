@@ -3,9 +3,11 @@ package bw.com.br.appImp.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +26,10 @@ import bw.com.br.appImp.R;
 import bw.com.br.appImp.activity.ClassFragment;
 import bw.com.br.appImp.activity.HomeFragment;
 import bw.com.br.appImp.activity.MainActivity;
+import bw.com.br.appImp.activity.MinhasTurmasFragment;
 import bw.com.br.appImp.model.Curso;
 import bw.com.br.appImp.model.Turma;
+import bw.com.br.appImp.utils.GlobalVar;
 
 /**
  * Created by bedab on 21/09/2015.
@@ -72,7 +76,9 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Turma current = data.get(position);
         holder.title.setText(current.getNomeTurma());
-        holder.setClickListener(new ItemClickListener() {
+        if(GlobalVar.getInstance().hasTurma(current)){
+            holder.mCardView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+        }        holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.MyAlertDialogStyle);
@@ -82,8 +88,8 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         addCourseToSharedPrefs(current);
-                        Toast.makeText(mContext, "Curso adicionado com sucesso!",Toast.LENGTH_LONG).show();
-                        Fragment fragment = new HomeFragment();
+                        Toast.makeText(mContext, "Curso adicionado com sucesso!", Toast.LENGTH_LONG).show();
+                        Fragment fragment = new MinhasTurmasFragment();
                         switchContent(R.id.container_body, fragment);
                     }
                 });
@@ -110,6 +116,8 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
             cursoJson.put("curso", curso.getTurmasJsonArray());
             editor.putString("cursos", cursoJson.toString());
             editor.commit();
+            MainActivity mainActivity = (MainActivity) mContext;
+            mainActivity.carregaVariavelGlobal();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -144,10 +152,12 @@ public class TurmaSelectAdapter extends RecyclerView.Adapter<TurmaSelectAdapter.
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView title;
         private ItemClickListener clickListener;
+        CardView mCardView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.nome_campo);
+            mCardView = (CardView) itemView.findViewById(R.id.cv);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }

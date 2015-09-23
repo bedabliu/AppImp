@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-    private GlobalVar global = new GlobalVar();
+    private GlobalVar global = GlobalVar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +118,19 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_friends);
                 break;
             case 2:
-                fragment = new MessagesFragment();
-                title = getString(R.string.title_messages);
+                if(global.getCurso() != null) {
+                    if (global.getCurso().getTurmas().size() > 0) {
+                        Fragment fg = new MinhasTurmasFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("turmas", global.getCurso());
+                        fg.setArguments(bundle);
+                        switchContent(R.id.container_body, fg);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Você não possui cursos cadastrados!", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Você não possui cursos cadastrados!", Toast.LENGTH_LONG).show();
+                }
                 break;
             default:
                 break;

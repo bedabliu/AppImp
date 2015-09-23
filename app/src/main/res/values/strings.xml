@@ -9,13 +9,13 @@
 
     <string name="nav_item_home">Inicio</string>
     <string name="nav_item_curso">Curso</string>
-    <string name="nav_item_notifications">Messages</string>
+    <string name="nav_item_meus_cursos">Meus Cursos</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
         <item>@string/nav_item_curso</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_meus_cursos</item>
     </string-array>
 
 
