@@ -69,8 +69,16 @@ public class Curso implements Serializable {
     public JSONArray getTurmasJsonArray() {
         JSONArray array = new JSONArray();
         for (int i = 0; i < turmas.size(); i++) {
+            JSONObject turmaJSON = new JSONObject();
+            try {
+                turmaJSON.put("nome", turmas.get(i).getNomeTurma());
+                turmaJSON.put("url", turmas.get(i).getUrlTurma());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             array.put(turmas.get(i));
         }
         return array;
     }
+
 }
